@@ -30,7 +30,7 @@ from ivy_tests.test_ivy.helpers import handle_cmd_line_args
         max_num_dims=1,
         min_dim_size=2,
     ),
-    axis=helpers.integers(min_value=-1, max_value=0),
+    axis=helpers.ints(min_value=-1, max_value=0),
     epsilon=st.floats(min_value=0, max_value=0.49),
     num_positional_args=helpers.num_positional_args(fn_name="cross_entropy"),
     data=st.data(),
@@ -38,7 +38,6 @@ from ivy_tests.test_ivy.helpers import handle_cmd_line_args
 @handle_cmd_line_args
 def test_cross_entropy(
     *,
-    data,
     dtype_and_true,
     dtype_and_pred,
     axis,
@@ -64,11 +63,11 @@ def test_cross_entropy(
         instance_method=instance_method,
         fw=fw,
         fn_name="cross_entropy",
+        rtol_=1e-03,
         true=np.asarray(true, dtype=true_dtype),
         pred=np.asarray(pred, dtype=pred_dtype),
         axis=axis,
         epsilon=epsilon,
-        rtol_=1e-03,
     )
 
 
@@ -101,7 +100,6 @@ def test_cross_entropy(
 @handle_cmd_line_args
 def test_binary_cross_entropy(
     *,
-    data,
     dtype_and_true,
     dtype_and_pred,
     epsilon,
@@ -154,7 +152,7 @@ def test_binary_cross_entropy(
         max_num_dims=1,
         min_dim_size=3,
     ),
-    axis=helpers.integers(min_value=-1, max_value=0),
+    axis=helpers.ints(min_value=-1, max_value=0),
     epsilon=st.floats(min_value=0, max_value=0.49),
     num_positional_args=helpers.num_positional_args(fn_name="sparse_cross_entropy"),
     data=st.data(),
@@ -162,7 +160,6 @@ def test_binary_cross_entropy(
 @handle_cmd_line_args
 def test_sparse_cross_entropy(
     *,
-    data,
     dtype_and_true,
     dtype_and_pred,
     axis,
